@@ -1,0 +1,14 @@
+#spring datasouce 和mvc 相关配置
+spring: 
+  datasource:
+    url: jdbc:mysql://bdm257613210.my3w.com:3306/bdm257613210_db?characterEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+    username: bdm257613210
+    password: yuanenguang
+
+#server:
+#  port: 80
+
+
+  
+    
