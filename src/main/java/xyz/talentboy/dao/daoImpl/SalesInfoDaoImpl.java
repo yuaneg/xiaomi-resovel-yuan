@@ -22,7 +22,6 @@ public class SalesInfoDaoImpl implements ISalesInfoDao {
 		sb.append("(");
 		sb.append(info);
 		sb.append(")");
-		System.out.println(sb.toString());
 		jdbcTemplate.execute(sb.toString());
 	}
 

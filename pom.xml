@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>xiaomi-resovel-yuan</name>
-	<description>xyz.talentboy</description>
+	<description>xiaomi-resovel-yuan</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -52,11 +52,6 @@
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.2.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>3.9</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
