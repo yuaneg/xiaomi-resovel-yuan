@@ -6,6 +6,10 @@ import org.springframework.stereotype.Service;
 import xyz.talentboy.dao.ISalesInfoDao;
 import xyz.talentboy.service.ISalesInfoService;
 
+/**
+ * @author yuaneg 2017年1月17日上午10:38:51
+ *
+ */
 @Service
 public class SalesInfoServiceImpl implements ISalesInfoService {
 	
@@ -15,6 +19,11 @@ public class SalesInfoServiceImpl implements ISalesInfoService {
 	@Override
 	public void insertSalesInfo(String info) {
 		salesInfoDao.insertSalesInfo(info);
+	}
+
+	@Override
+	public void deleteSalesInfoAll() {
+		salesInfoDao.deleteSalesInfoAll();
 	}
 
 }

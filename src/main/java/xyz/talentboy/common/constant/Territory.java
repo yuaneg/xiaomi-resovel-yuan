@@ -1,5 +1,9 @@
 package xyz.talentboy.common.constant;
 
+/**
+ * @author yuaneg 2017年1月17日上午10:38:51
+ *
+ */
 public enum Territory {
 	
 	华北地区("北京", "天津", "河北", "山西", "内蒙古"), 
@@ -15,11 +19,11 @@ public enum Territory {
 		this.provinces = provinces;
 	}
 	
-	public String getTerritoryByProvince(String name){
+	public static String getTerritoryByProvince(String name){
 		for(Territory territory : values()){
 			String[] ps = territory.getProvinces();
 			for(String pro : ps){
-				if(name.equals(pro) || pro.contains(name)){
+				if(pro.contains(name) || name.contains(pro)){
 					return territory.toString();
 				}
 			}

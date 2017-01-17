@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import xyz.talentboy.common.constant.Province;
 import xyz.talentboy.common.constant.Territory;
 
 @RunWith(SpringRunner.class)
@@ -13,8 +14,10 @@ public class XiaomiResovelYuanApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		Territory tt = Territory.valueOf("山东");
-		System.out.println(tt.toString());
+		String name = Province.valueOf(37);
+		System.out.println(name);
+		String name2 = Territory.getTerritoryByProvince("甘肃");
+		System.out.println(name2);
 	}
-
+	
 }

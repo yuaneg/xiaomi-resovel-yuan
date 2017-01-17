@@ -5,9 +5,21 @@
 </head>
 <body>
 	<h1>hello 小洣粒儿o0</h1>
-	<form method="post" action="uploadfile" enctype="multipart/form-data" accept="xlsx">
-		<input type="file" name="file" /> 
-		<input type="submit" />
+	<form method="post" action="uploadfile" enctype="multipart/form-data" id="form1">
+		文件上传:<input type="file" name="file" /> 
+		<input type="button" value="上传" onclick="upload()"/> 备注:只支持.xls 和.xlsx
 	</form>
+	
+	<a href="combine">分析数据</a>
+	<a href="delete">清空所有数据</a>
+	<!-- 隐藏区域 -->
+	<input id="uploadValidate" th:value = "${uploadValidate}" hidden='hidden'/>	
 </body>
+
+
+<!-- javascript -->
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/home.js"></script>
+<!-- layer引入 -->
+ <script src="js/layer/layer.js"></script>
 </html>

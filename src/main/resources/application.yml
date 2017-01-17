@@ -5,11 +5,13 @@ spring:
 #    driver-class-name: com.mysql.jdbc.Driver
 #    username: bdm257613210
 #    password: yuanenguang
-    url: jdbc:mysql://127.0.0.1:3306/xiaomi?characterEncoding=utf-8
+    url: jdbc:mysql://127.0.0.1:3306/xiaomi?characterEncoding=utf-8&useSSL=true
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
- 
+  #关闭thymeleaf 缓存
+  thymeleaf:
+    cache: false
 logging: 
   level:
     root: info

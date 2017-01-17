@@ -1,5 +1,9 @@
 package xyz.talentboy.common.constant;
 
+/**
+ * @author yuaneg 2017年1月17日上午10:38:51
+ *
+ */
 public enum Province {
 	北京市(11), 
 	天津市(12), 
@@ -42,7 +46,7 @@ public enum Province {
 		this.number = number;
 	}
 
-	public String getNameByCode(int number) {
+	public static String valueOf(int number) {
 		for (Province province : values()) {
 			if (province.getNumber() == number) {
 				return province.toString();
