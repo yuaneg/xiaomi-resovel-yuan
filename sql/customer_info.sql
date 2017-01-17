@@ -21,7 +21,7 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `customer_info`;
 CREATE TABLE `customer_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(255) DEFAULT NULL COMMENT '用户姓名',
+  `customer_name` varchar(255) DEFAULT NULL COMMENT '用户姓名',
   `card_type` varchar(255) DEFAULT NULL COMMENT '证件类型',
   `card_number` varchar(255) DEFAULT NULL COMMENT '身份证号码',
   `gender` varchar(255) DEFAULT NULL COMMENT '性别',

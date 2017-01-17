@@ -46,7 +46,7 @@ CREATE TABLE `sales_info` (
   `income_amount` varchar(255) DEFAULT NULL COMMENT '本息和',
   `department` varchar(255) DEFAULT NULL COMMENT '部门',
   `manager` varchar(255) DEFAULT NULL COMMENT '销售经理',
-  `responsible` varchar(255) DEFAULT NULL COMMENT '负责人',
+  `principal` varchar(255) DEFAULT NULL COMMENT '负责人',
   `customer_cell_phone` varchar(255) DEFAULT NULL,
   `retrun_number` varchar(255) DEFAULT NULL COMMENT '回访次数',
   `return_time` varchar(255) DEFAULT NULL COMMENT '回访时间',
