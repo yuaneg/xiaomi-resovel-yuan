@@ -1,32 +1,17 @@
 package xyz.talentboy.controller;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.io.FileUtils;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
+import xyz.talentboy.async.CommonForAsync;
+import xyz.talentboy.common.util.ExcelUtils;
+import xyz.talentboy.service.ICombineInfoService;
 import xyz.talentboy.service.ICommonService;
 
 @Controller
@@ -36,37 +21,33 @@ public class AnalyzeController {
 
 	@Autowired
 	private ICommonService commonService;
-
+	
+	@Autowired
+	private CommonForAsync commonForAsync;
+	
+	@Autowired
+	private ICombineInfoService combineInfoService;
+	
+	/**
+	 * 查询并导出合并数据
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/combine")
-	public String combineSalesAndCustomer(ModelAndView view) {
-		logger.info("combine组合");
-		List<Map<String, Object>> list = commonService.combineSalesAndCustomer();
-		System.out.println(list.size());
-		return "redirect:/";
-	}
-	
-	
-	@RequestMapping("/download")
-	public ResponseEntity<byte[]> download() throws IOException {
-		String fileName=new String("合并数据.xlsx".getBytes("UTF-8"),"iso-8859-1");
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-		headers.setContentDispositionFormData("attachment", fileName);
-		InputStream in = new DefaultResourceLoader().getResource("static/exceltemplate/hebing.xlsx").getInputStream();
-		XSSFWorkbook wb = new XSSFWorkbook(in);
-		Sheet sheet = wb.getSheetAt(0);
-		List<Map<String, Object>> list = commonService.combineSalesAndCustomer();
-		for(int i = 1 ;i<list.size();i++ ){
-			Row row = sheet.createRow(i);
-			Map<String,Object> map = list.get(i-1);
-			for(int j = 0;j<map.size();j++){
-				Cell cell = row.createCell(j);
-				//cell.setCellValue(map.get(""));
-			}
+	public ResponseEntity<byte[]> download() throws Exception {
+		List<Map<String, Object>> list = combineInfoService.queryAllCombine();
+		if(list.size() > 0){
+			logger.info("数据已经存在");
+			return ExcelUtils.buildWorkBookDown("合并数据导出", "hebing", list);
 		}
-		ByteArrayOutputStream out = new ByteArrayOutputStream(); 
-		wb.write(out);
-		return new ResponseEntity<byte[]>(out.toByteArray(), headers, HttpStatus.CREATED);
+		logger.info("combine数据导出开始");
+		list = commonService.combineSalesAndCustomer();
+		logger.info("插入数据开始");
+		//异步操作中间表 避免前台等待时间过长
+		commonForAsync.insertCombineInfo(list);
+		ResponseEntity<byte[]> result = ExcelUtils.buildWorkBookDown("合并数据导出", "hebing", list);
+		logger.info("combine数据导出结束");
+		return result;
 	}
 	
 }

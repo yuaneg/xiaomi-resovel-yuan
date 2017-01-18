@@ -17,13 +17,13 @@ public class IndexController {
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 	
 	@RequestMapping("/")
-	public ModelAndView indexCon(ModelAndView view,String uploadValidate) {
+	public ModelAndView indexCon(ModelAndView view,String validate) {
 		logger.info("访问时间" + new Date());
 		view.setViewName("home");
-		if(null == uploadValidate){
-			view.addObject("uploadValidate", "success");
+		if(null == validate){
+			view.addObject("validate", "success");
 		} else {
-			view.addObject("uploadValidate", uploadValidate);
+			view.addObject("validate", validate);
 		}
 		return view;
 	}

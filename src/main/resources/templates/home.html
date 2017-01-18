@@ -9,12 +9,12 @@
 		文件上传:<input type="file" name="file" /> 
 		<input type="button" value="上传" onclick="upload()"/> 备注:只支持.xls 和.xlsx
 	</form>
-	
-	<a href="combine">分析数据</a>
+	<a href="javascript:;" onclick="combine()">合并数据结果下载</a>
 	<a href="delete">清空所有数据</a>
-	<a href="download">清空所有数据</a>
 	<!-- 隐藏区域 -->
-	<input id="uploadValidate" th:value = "${uploadValidate}" hidden='hidden'/>	
+	<input id="validate" th:value = "validate" hidden='hidden'/>
+	<!-- 合并数据下载 -->
+	<form action="combine" id="form2" hidden="hidden" method="post" ></form>	
 </body>
 
 
