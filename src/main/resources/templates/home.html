@@ -1,26 +1,27 @@
 <html xmlns:th="http://www.thymeleaf.org" >
 <head>
 <meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <title>小洣粒儿o0</title>
+<link rel="stylesheet" href="module/layui/css/layui.css" />
+<link rel="stylesheet" href="css/home.css"/>
 </head>
 <body>
-	<h1>hello 小洣粒儿o0</h1>
-	<form method="post" action="uploadfile" enctype="multipart/form-data" id="form1">
-		文件上传:<input type="file" name="file" /> 
-		<input type="button" value="上传" onclick="upload()"/> 备注:只支持.xls 和.xlsx
-	</form>
-	<a href="javascript:;" onclick="combine()">合并数据结果下载</a>
-	<a href="delete">清空所有数据</a>
-	<!-- 隐藏区域 -->
-	<input id="validate" th:value = "validate" hidden='hidden'/>
-	<!-- 合并数据下载 -->
-	<form action="combine" id="form2" hidden="hidden" method="post" ></form>	
+	<p style="margin-bottom: 20px; text-align: center;">
+      <img src="images/hello.png" />
+    </p>
+	
+	<div class="tools">
+	 <input type="file" name="file" lay-ext="xlsx|xls" lay-type="file" class="layui-upload-file" lay-title="原数据上传(只支持*.xlsx/xls)"/>
+	 <button class="layui-btn" onclick = "deleteData()">清空所有数据</button>
+	 <button class="layui-btn" onclick = "combine()">合并数据下载</button>
+	 <button class="layui-btn" onclick = "combine()">合并数据下载</button>
+	</div>
+	<form action="combine" id="form2" hidden="hidden" method="post" ></form>
 </body>
 
-
-<!-- javascript -->
-<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/home.js"></script>
 <!-- layer引入 -->
- <script src="js/layer/layer.js"></script>
+<script type="text/javascript" src="module/layui/layui.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/home.js"></script>
 </html>

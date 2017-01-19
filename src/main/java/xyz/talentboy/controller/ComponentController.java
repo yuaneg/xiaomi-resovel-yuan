@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import xyz.talentboy.service.ICombineInfoService;
 import xyz.talentboy.service.IComponentService;
@@ -43,15 +43,16 @@ public class ComponentController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/uploadfile")
-	public ModelAndView upload(@RequestParam(value = "file") MultipartFile file, ModelAndView view) throws Exception {
-		view.setViewName("redirect:/");
-		view.addObject("validate", "success");
-		boolean flag = componentService.importExcelData(file);
-		if (!flag) {
-			view.addObject("validate", "error");
+	@ResponseBody
+	public boolean upload(@RequestParam(value = "file") MultipartFile file)  {
+		boolean flag = false;
+		try {
+			flag = componentService.importExcelData(file);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		logger.info("导入结束");
-		return view;
+		return flag;
 	}
 	
 	/**
@@ -60,13 +61,17 @@ public class ComponentController {
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public ModelAndView deleteAllData(ModelAndView view){
-		view.setViewName("redirect:/");
-		view.addObject("validate", "success");
-		salesInfoService.deleteSalesInfoAll();
-		customerInfoService.deleteCustomerAll();
-		combineInfoService.deleteCombineInfo();
-		return view;
+	@ResponseBody
+	public String deleteAllData(){
+		try {
+			salesInfoService.deleteSalesInfoAll();
+			customerInfoService.deleteCustomerAll();
+			combineInfoService.deleteCombineInfo();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "数据清空失败";
+		}
+		return "数据清空成功";
 	}
 	
 }
