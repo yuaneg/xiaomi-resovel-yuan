@@ -50,4 +50,12 @@ public class AnalyzeController {
 		return result;
 	}
 	
+	@RequestMapping("/age")
+	public ResponseEntity<byte[]> downdloadAge() throws Exception{
+		//在service层进行组合
+		List<Map<String, Object>> list = combineInfoService.groupByAgeAndDepartment();
+		ResponseEntity<byte[]> result = ExcelUtils.buildWorkBookDown("根据年龄导出", "age", list);
+		return result;
+	}
+	
 }

@@ -11,4 +11,9 @@ public interface ICombineInfoDao {
 	
 	public List<Map<String,Object>> queryAllCombine();
 	
+	public List<Map<String,Object>> groupByAge(int start,int end);
+	
+	public List<Map<String,Object>> getDepartment();
+	
+	public List<Map<String,Object>> groupByAgeNone();
 }

@@ -44,5 +44,37 @@ public class CombineInfoDaoImpl implements ICombineInfoDao {
 		return jdbcTemplate.queryForList(sql);
 	}
 
+	@Override
+	public List<Map<String, Object>> groupByAge(int start, int end) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(" select a.department, a.count, b.amount from");
+		sb.append(" (select count(*) as count, a.department from");
+		sb.append(" (select count(*), department from `combine_info` where age");
+		sb.append(" between ? and ? group by card_number ) a group by a.department ) a");
+		sb.append(" left join (select sum(sales_amount) as amount, department from combine_info");
+		sb.append(" where age between ? and ? group by department ) b on a.department = b.department");
+		return jdbcTemplate.queryForList(sb.toString(), start, end, start, end);
+	}
+
+	@Override
+	public List<Map<String, Object>> getDepartment() {
+		String sql = "select department from combine_info group by department order by department";
+		return jdbcTemplate.queryForList(sql);
+	}
+
+	@Override
+	public List<Map<String, Object>> groupByAgeNone() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(" select a.department, a.count, b.amount from");
+		sb.append(" (select count(*) as count, a.department from");
+		sb.append(" (select count(*), department from `combine_info` where age");
+		sb.append(" =-1 group by card_number ) a group by a.department ) a");
+		sb.append(" left join (select sum(sales_amount) as amount, department from combine_info");
+		sb.append(" where age = -1 group by department ) b on a.department = b.department");
+		return jdbcTemplate.queryForList(sb.toString());
+	}
+	
+	
+	
 }
  

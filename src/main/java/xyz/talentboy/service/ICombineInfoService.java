@@ -12,4 +12,5 @@ public interface ICombineInfoService {
 	
 	public List<Map<String,Object>> queryAllCombine();
 	
+	public List<Map<String,Object>> groupByAgeAndDepartment();
 }
