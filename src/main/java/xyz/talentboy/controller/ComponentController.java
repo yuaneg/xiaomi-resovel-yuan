@@ -1,5 +1,8 @@
 package xyz.talentboy.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import xyz.talentboy.service.ICombineInfoService;
+import xyz.talentboy.service.ICommonService;
 import xyz.talentboy.service.IComponentService;
 import xyz.talentboy.service.ICustomerInfoService;
 import xyz.talentboy.service.ISalesInfoService;
@@ -35,6 +39,9 @@ public class ComponentController {
 	
 	@Autowired
 	private ICombineInfoService combineInfoService;
+
+	@Autowired
+	private ICommonService commonService;
 	
 	/**
 	 * 上传读取excel文件
@@ -48,6 +55,8 @@ public class ComponentController {
 		boolean flag = false;
 		try {
 			flag = componentService.importExcelData(file);
+			List<Map<String,Object>> list = commonService.combineSalesAndCustomer();
+			combineInfoService.insertCombineInfo(list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

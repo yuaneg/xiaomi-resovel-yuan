@@ -34,7 +34,7 @@ public class CommonServiceImpl implements ICommonService {
 			// 获取身份证号
 			String cardNumber = null == map.get("card_number") ? "" : map.get("card_number").toString();
 			if (cardNumber.length() < 18) {
-				map.put("age", "无");
+				map.put("age", "-1");
 			} else {
 				String birthday = cardNumber.substring(6, 10);
 				Calendar ca = Calendar.getInstance();

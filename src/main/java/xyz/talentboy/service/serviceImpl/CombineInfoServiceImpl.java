@@ -89,8 +89,7 @@ public class CombineInfoServiceImpl implements ICombineInfoService {
 				if(i == 0){
 					map.put("20岁以下人数", "0");
 					map.put("20岁以总投资金额", "0");
-				}
-				
+				}	
 			}
 			//年龄在20到29
 			for(Map<String,Object> ageDe20 : map20){
@@ -184,7 +183,6 @@ public class CombineInfoServiceImpl implements ICombineInfoService {
 					i++;
 					map.put("80岁以上人数", ageDe80.get("count"));
 					map.put("80岁以上总投资金额", ageDe80.get("amount"));
-					break;
 				}
 				if(i == 0){
 					map.put("80岁以上人数", "0");
@@ -197,12 +195,12 @@ public class CombineInfoServiceImpl implements ICombineInfoService {
 				if(department.equals(ageDe00.get("department"))){
 					i++;
 					map.put("无岁数信息", ageDe00.get("count"));
-					map.put("无岁数信息", ageDe00.get("amount"));
+					map.put("无岁数信息投资总额", ageDe00.get("amount"));
 					break;
 				}
 				if(i == 0){
 					map.put("无岁数信息", "0");
-					map.put("无岁数信息", "0");
+					map.put("无岁数信息投资总额", "0");
 				}
 			}
 			resMap.add(map);
