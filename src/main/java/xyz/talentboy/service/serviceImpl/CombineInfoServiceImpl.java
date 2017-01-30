@@ -207,5 +207,39 @@ public class CombineInfoServiceImpl implements ICombineInfoService {
 		}
 		return resMap;
 	}
+
+
+	@Override
+	public List<Map<String, Object>> groupbyGenderAndDepartment() {
+		List<Map<String, Object>> list1 = combineInfoDao.groupbyGender();
+		List<Map<String, Object>> list2 = combineInfoDao.getCountByGender("男性", "2015");
+		List<Map<String, Object>> list3 = combineInfoDao.getCountByGender("男性", "2016");
+		List<Map<String, Object>> list4 = combineInfoDao.getCountByGender("女性", "2015");
+		List<Map<String, Object>> list5 = combineInfoDao.getCountByGender("女性", "2016");
+		List<Map<String, Object>> list6 = combineInfoDao.getCountByGender("", "2015");
+		List<Map<String, Object>> list7 = combineInfoDao.getCountByGender("", "2016");
+		list2.addAll(list3);
+		list2.addAll(list4);
+		list2.addAll(list5);
+		list2.addAll(list6);
+		list2.addAll(list7);
+		//根据list1 查询出3个条件相等部门和 年限 和 性别
+		for(Map<String, Object> map : list1){
+			//三个条件
+			String year = null == map.get("buy_year") ? "" : map.get("buy_year").toString();
+			String gender = null == map.get("gender") ? "" : map.get("gender").toString();
+			String department = null == map.get("department") ? "" : map.get("department").toString();
+			for(Map<String, Object> map2 : list2){
+				//三个条件
+				String year2 = null == map2.get("buy_year") ? "" : map2.get("buy_year").toString();
+				String gender2 = null == map2.get("gender") ? "" : map2.get("gender").toString();
+				String department2 = null == map2.get("department") ? "" : map2.get("department").toString();
+				if(year.equals(year2) && gender.equals(gender2) && department.equals(department2)){
+					map.put("count", map2.get("count"));
+				}
+			}
+		}
+		return list1;
+	}
 	
 }

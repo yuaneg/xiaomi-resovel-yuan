@@ -74,7 +74,24 @@ public class CombineInfoDaoImpl implements ICombineInfoDao {
 		return jdbcTemplate.queryForList(sb.toString());
 	}
 	
-	
-	
+	@Override
+	public List<Map<String, Object>> groupbyGender() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(" select a.gender, a.buy_year as buy_year, a.department as department,");
+		sb.append(" sum(a.sales_amount) as amount from combine_info a");
+		sb.append(" group by a.department, a.buy_year, a.gender");
+		return jdbcTemplate.queryForList(sb.toString());
+	}
+
+	@Override
+	public List<Map<String, Object>> getCountByGender(String gender,String buyYear) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(" select a.department, count(a.count) as count ,a.gender as gender, a.buy_year as buy_year from ");
+		sb.append(" (select department, count(*) as count ,gender,buy_year");
+		sb.append(" from combine_info where gender = ? and buy_year = ? ");
+		sb.append(" group by card_number ) a group by a.department ");
+		return jdbcTemplate.queryForList(sb.toString(),gender,buyYear);
+	}
+
 }
  

@@ -16,4 +16,9 @@ public interface ICombineInfoDao {
 	public List<Map<String,Object>> getDepartment();
 	
 	public List<Map<String,Object>> groupByAgeNone();
+	
+	public List<Map<String, Object>> groupbyGender();
+	
+	public List<Map<String, Object>> getCountByGender(String gender,String buyYear);
+	
 }

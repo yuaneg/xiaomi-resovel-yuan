@@ -27,19 +27,36 @@ public class AnalyzeController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/combine")
-	public ResponseEntity<byte[]> download() throws Exception {
+	public ResponseEntity<byte[]> download() {
 		List<Map<String, Object>> list = combineInfoService.queryAllCombine();
 		ResponseEntity<byte[]> result = ExcelUtils.buildWorkBookDown("合并数据导出", "hebing", list);
 		logger.info("combine数据导出结束");
 		return result;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping("/age")
-	public ResponseEntity<byte[]> downdloadAge() throws Exception{
+	public ResponseEntity<byte[]> downdloadAge() {
 		//在service层进行组合
 		List<Map<String, Object>> list = combineInfoService.groupByAgeAndDepartment();
 		ResponseEntity<byte[]> result = ExcelUtils.buildWorkBookDown("根据年龄导出", "age", list);
 		return result;
+	}
+	
+	/**
+	 * 根据年龄区分,每一个不同的年中男女的投资总额占比,不同分公司(外加所有的年的投资总和)
+	 * @return
+	 */
+	@RequestMapping("/gender")
+	public ResponseEntity<byte[]> downdloadGender() {
+		logger.info("按照性别导出");
+		List<Map<String, Object>> list =  combineInfoService.groupbyGenderAndDepartment();
+		ResponseEntity<byte[]> result = ExcelUtils.buildWorkBookDown("根据性别导出", "gender", list);
+		return result;
+		
 	}
 	
 }

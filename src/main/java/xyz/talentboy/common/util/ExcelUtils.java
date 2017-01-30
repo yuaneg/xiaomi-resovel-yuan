@@ -53,17 +53,22 @@ public class ExcelUtils {
 	 * @return
 	 * @throws Exception
 	 */
-	public static ResponseEntity<byte[]> buildWorkBookDown(String name,String resourceName,List<Map<String,Object>> list) throws Exception{		
-		String fileName = new String((name+".xlsx").getBytes("UTF-8"), "iso-8859-1");
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-		headers.setContentDispositionFormData("attachment", fileName);
-		XSSFWorkbook wb = buildWorkBook(resourceName, list);
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		wb.write(out);
-		ResponseEntity<byte[]> result = new ResponseEntity<byte[]>(out.toByteArray(), headers, HttpStatus.CREATED);
-		wb.close();
-		return result;
+	public static ResponseEntity<byte[]> buildWorkBookDown(String name,String resourceName,List<Map<String,Object>> list) {		
+		try {
+			String fileName = new String((name+".xlsx").getBytes("UTF-8"), "iso-8859-1");
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			headers.setContentDispositionFormData("attachment", fileName);
+			XSSFWorkbook wb = buildWorkBook(resourceName, list);
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			wb.write(out);
+			ResponseEntity<byte[]> result = new ResponseEntity<byte[]>(out.toByteArray(), headers, HttpStatus.CREATED);
+			wb.close();
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }
