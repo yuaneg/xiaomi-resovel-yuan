@@ -11,6 +11,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 /**
  * 异步
+ * 
  * @author yuaneg 2017年1月18日下午1:51:56
  *
  */
@@ -18,20 +19,20 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @EnableAsync
 public class AsyncConfig implements AsyncConfigurer {
 
-   @Override
-     public Executor getAsyncExecutor() {
-         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-         executor.setCorePoolSize(7);
-         executor.setMaxPoolSize(42);
-         executor.setQueueCapacity(11);
-         executor.setThreadNamePrefix("myasync");
-         executor.initialize();
-         return executor;
-     }
+	@Override
+	public Executor getAsyncExecutor() {
+		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+		executor.setCorePoolSize(7);
+		executor.setMaxPoolSize(42);
+		executor.setQueueCapacity(11);
+		executor.setThreadNamePrefix("myasync");
+		executor.initialize();
+		return executor;
+	}
 
-     @Override
-     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-         return new SimpleAsyncUncaughtExceptionHandler();
-     }
-     
+	@Override
+	public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+		return new SimpleAsyncUncaughtExceptionHandler();
+	}
+
 }
