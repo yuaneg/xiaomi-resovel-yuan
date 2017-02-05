@@ -15,17 +15,17 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 public class ExcelUtils {
-	
-	
+
 	/**
-	 * 根据模板肯和文件名创建文件
+	 * 根据模板和文件名创建文件
+	 * 
 	 * @param name
 	 * @param list
 	 * @return
 	 * @throws Exception
 	 */
-	public static XSSFWorkbook buildWorkBook(String resourceName,List<Map<String,Object>> list) throws Exception{
-		InputStream in = new DefaultResourceLoader().getResource("static/exceltemplate/"+resourceName+".xlsx").getInputStream();
+	public static XSSFWorkbook buildWorkBook(String resourceName, List<Map<String, Object>> list) throws Exception {
+		InputStream in = new DefaultResourceLoader().getResource("static/exceltemplate/" + resourceName + ".xlsx").getInputStream();
 		XSSFWorkbook wb = new XSSFWorkbook(in);
 		Sheet sheet = wb.getSheetAt(0);
 		for (int i = 1; i < list.size(); i++) {
@@ -44,18 +44,19 @@ public class ExcelUtils {
 		}
 		return wb;
 	}
-	
+
 	/**
 	 * 构建下载用的 responseEntity
+	 * 
 	 * @param name
 	 * @param resourceName
 	 * @param list
 	 * @return
 	 * @throws Exception
 	 */
-	public static ResponseEntity<byte[]> buildWorkBookDown(String name,String resourceName,List<Map<String,Object>> list) {		
+	public static ResponseEntity<byte[]> buildWorkBookDown(String name, String resourceName,List<Map<String, Object>> list) {
 		try {
-			String fileName = new String((name+".xlsx").getBytes("UTF-8"), "iso-8859-1");
+			String fileName = new String((name + ".xlsx").getBytes("UTF-8"), "iso-8859-1");
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 			headers.setContentDispositionFormData("attachment", fileName);
@@ -70,5 +71,5 @@ public class ExcelUtils {
 		}
 		return null;
 	}
-	
+
 }
